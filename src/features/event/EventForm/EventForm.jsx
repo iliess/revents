@@ -11,9 +11,23 @@ class EventForm extends Component {
         hostedBy: ''
     }
 
-    handleFormSubmitTest = (evt) => {
+    componentDidMount(){
+        if (this.props.selectedEvent !== null){
+            this.setState({
+                //spread properties in all states (title, date...)
+                ...this.props.selectedEvent
+            })
+        }
+    }
+    
+
+    handleFormSubmit = evt => {
         evt.preventDefault();
-        this.props.createEvent(this.state);
+        if (this.state.id){
+            this.props.updateEvent(this.state);
+        } else {
+            this.props.createEvent(this.state);
+        }
     }
 
     // handleInputChange = evt => {
@@ -35,7 +49,7 @@ class EventForm extends Component {
 
         return (
             <Segment>
-                <Form onSubmit={this.handleFormSubmitTest} autoComplete='off'>
+                <Form onSubmit={this.handleFormSubmit} autoComplete='off'>
                     <Form.Field>
                         <label>Event Title</label>
                         <input
