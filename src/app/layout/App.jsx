@@ -10,6 +10,7 @@ import SettingsDashboard from '../../features/user/Settings/SettingsDashboard';
 
 import { Route } from 'react-router';
 import EventForm from '../../features/event/EventForm/EventForm';
+import TestComponent from '../../features/testarea/TestComponent';
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
                 <Route path='/profile/:id' component={UserDetailedPage} />
                 <Route path='/settings' component={SettingsDashboard} />
                 <Route path='/createEvent' component={EventForm} />
+                <Route path='/test' component={TestComponent} />
               </Container>
           </Fragment>
           )} />
