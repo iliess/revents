@@ -8,7 +8,7 @@ import PeopleDashboard from '../../features/user/PeopleDashboard/PeopleDashboard
 import UserDetailedPage from '../../features/user/UserDetailed/UserDetailedPage';
 import SettingsDashboard from '../../features/user/Settings/SettingsDashboard';
 
-import { Route } from 'react-router';
+import { Route, Switch, withRouter } from 'react-router';
 import EventForm from '../../features/event/EventForm/EventForm';
 import TestComponent from '../../features/testarea/TestComponent';
 
@@ -16,24 +16,27 @@ class App extends Component {
   render() {
     return (
       <Fragment>
-          <Route exact path='/' component={HomePage} />
-          <Route path='/(.+)' render={() => (
-            <Fragment>
-              <NavBar />
-              <Container className="main">
-                <Route path='/events' component={EventDashboard} />
+        <Route exact path='/' component={HomePage} />
+        <Route path='/(.+)' render={() => (
+          <Fragment>
+            <NavBar />
+            <Container className="main">
+              <Switch key={this.props.location.key}>
+                <Route exact path='/events' component={EventDashboard} />
                 <Route path='/events/:id' component={EventDetailedPage} />
                 <Route path='/people' component={PeopleDashboard} />
                 <Route path='/profile/:id' component={UserDetailedPage} />
                 <Route path='/settings' component={SettingsDashboard} />
-                <Route path='/createEvent' component={EventForm} />
+                <Route path={['/createEvent', '/manage/:id']} component={EventForm} />
                 <Route path='/test' component={TestComponent} />
-              </Container>
+              </Switch>
+            </Container>
           </Fragment>
-          )} />
-      </Fragment>      
+        )} />
+      </Fragment>
     );
   }
 }
 
-export default App;
+//our app as access to the rooting props
+export default withRouter(App);
